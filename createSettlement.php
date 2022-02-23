@@ -53,17 +53,45 @@ try {
         $driver->quit();
     }
 
-    $accountElement = $driver->wait()->until(
+    $driver->wait()->until(
         WebDriverExpectedCondition::elementTextContains(
             WebDriverBy::cssSelector('#navbar-right-top > ul.topnav.pull-right.logininfo > li > a'),
             'My Account'
         )
     );
-    
     echo "Login successfully! \n";
 
+    // access to settlement listing page
     $driver->get("http://192.168.28.108/operator.php?hdl=main&aot=settlement&type=request");
-    $driver->findElement(WebDriverBy::id("addButton"))->click();
+    $accessSettlement = $driver->wait()->until(
+        WebDriverExpectedCondition::elementTextContains(
+            WebDriverBy::xpath('//span[@id="panel-1178_header_hd-textEl"]'),
+            'Settlement'
+        )
+    );
+    if (!$accessSettlement) {
+        throw new Exception("Failed to access Settlement Page\n");
+    } else {
+        echo "Successfully access to Settlement Request Module";
+    }
+
+    // Open the add settlement form 
+    $driver->findElement(WebDriverBy::xpath('//a[@id="addButton"]'))->click();
+
+    $settlementForm = $driver->wait()->until(
+        WebDriverExpectedCondition::elementTextContains(
+            WebDriverBy::xpath('//span[@id="mywindow_header_hd-textEl"]'),
+            'Add New Record'
+        )
+    );
+
+    if (!$settlementForm) {
+        throw new Exception("Failed to open CREATE/ADD Settlement form\n");
+    }
+    // TODO: 
+    // Create a simple Settlement transaction to success 
+    // request one settlement 
+    // until select partner on add new record form
 
     sleep(3);
 
