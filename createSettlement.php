@@ -26,9 +26,10 @@ try {
     $driver->findElement(WebDriverBy::id('captcha'))->click();
 
     $loginTime = time();
-    while (time() - $loginTime < 6) {
-    	echo "Stop 3 seconds for manual captcha input\n"; 
-    	sleep(3);
+    $timeDiff = time() - $loginTime;
+    while (6 > $timeDiff) {
+    	echo "Stop 4 seconds for manual captcha input\n"; 
+    	sleep(4);
 
 	    $getCaptcha = $driver->findElement(WebDriverBy::id('captcha'))->getAttribute('value');
 
@@ -40,17 +41,6 @@ try {
     	    echo "Login in progress... \n";
             break;
 	    }
-    }
-
-    if (4 > strlen(trim($getCaptcha)) && 0 != strlen(trim($getCaptcha))) {
-        echo "Captcha entered: " . $getCaptcha . "\n";
-        throw new Exception("Captcha is invalid!\n");
-        // terminate the session and close the browser
-        $driver->quit();
-    } elseif (0 == strlen(trim($getCaptcha))) {
-        throw new Exception("Captcha is empty!\n");
-        // terminate the session and close the browser
-        $driver->quit();
     }
 
     $driver->wait()->until(
@@ -72,7 +62,7 @@ try {
     if (!$accessSettlement) {
         throw new Exception("Failed to access Settlement Page\n");
     } else {
-        echo "Successfully access to Settlement Request Module";
+        echo "Successfully access to Settlement Request Module\n";
     }
 
     // Open the add settlement form 
@@ -87,7 +77,51 @@ try {
 
     if (!$settlementForm) {
         throw new Exception("Failed to open CREATE/ADD Settlement form\n");
+    } else {
+        echo "Open create Settlement form\n";
     }
+    
+    // Select Partner Type
+    $driver->findElement(WebDriverBy::xpath('//input[@id="formpartnertype-inputEl"]'))->click();
+    $driver->findElement(WebDriverBy::id('formpartnertype-inputEl'))->sendKeys('Merchant');
+    $driver->wait(3,250)->until(
+        WebDriverExpectedCondition::elementTextContains(
+            WebDriverBy::xpath('//li[text()="Merchant"]'),
+            'Merchant'
+        )
+    );
+    $driver->findElement(WebDriverBy::xpath('//li[text()="Merchant"]'))->click();
+    echo "Selected Partner Type\n";
+    sleep(1);
+
+    // Select Partner Code
+    $driver->findElement(WebDriverBy::xpath('//input[@id="formpartnerid-inputEl"]'))->click();
+    $driver->findElement(WebDriverBy::id('formpartnerid-inputEl'))->sendKeys('TA000001');
+    $driver->wait()->until(
+        WebDriverExpectedCondition::elementTextContains(
+            WebDriverBy::xpath('//li[text()="TA000001 | TA000001"]'),
+            'TA000001 | TA000001'
+        )
+    );
+    $driver->findElement(WebDriverBy::xpath('//li[text()="TA000001 | TA000001"]'))->click();
+    echo "Selected Partner Code\n";
+    sleep(3);
+
+    $driver->findElement(WebDriverBy::xpath('//*[@id="formfromaccountid-inputCell"]'))->click();
+    $driver->findElement(WebDriverBy::xpath('//*[@id="formfromaccountid-inputCell"]'))->sendKeys('VND | Fund Transfer |  (TA000001)');
+    // $driver->wait()->until(
+    //     WebDriverExpectedCondition::elementTextContains(
+    //         WebDriverBy::xpath('//li[contains(text(),"VND | Fund Transfer")]'),
+    //         'VND'
+    //     )
+    // );
+    // $driver->findElement(WebDriverBy::xpath('//li[contains(text(),"VND | Fund Transfer")]'))->click();
+    echo "Selected Settle From\n";
+    sleep(1);
+
+
+
+
     // TODO: 
     // Create a simple Settlement transaction to success 
     // request one settlement 
