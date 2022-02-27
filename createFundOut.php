@@ -115,7 +115,7 @@ try {
     
     // Insert Remark
     // $driver->findElement(WebDriverBy::xpath('//input[@name="remark"]'))->sendKeys('test');
-    $driver->findElement(WebDriverBy::xpath('/html/body/div[7]/div[2]/div/div/span/div/table[12]/tbody/tr/td[2]/textarea'))->sendKeys('test');
+    $driver->findElement(WebDriverBy::xpath('/html/body/div[4]/div[2]/div/div/span/div/table[12]/tbody/tr/td[2]/textarea'))->sendKeys('test');
     sleep(1);
     
     // Insert Member Fund Out Information
@@ -134,7 +134,7 @@ try {
     $driver->findElement(WebDriverBy::xpath('//input[@name="bankbranch"]'))->sendKeys('test');
 
     // Submit form
-    $driver->findElement(WebDriverBy::xpath('/html/body/div[7]/div[3]/div/div/a[1]/span/span/span[1]'))->click();
+    $driver->findElement(WebDriverBy::xpath('/html/body/div[4]/div[3]/div/div/a[1]/span/span/span[2]'))->click();
     
     sleep(3)        ;
     $driver->quit();
