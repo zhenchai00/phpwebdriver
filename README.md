@@ -14,5 +14,8 @@
 - [Ways to get xpath in Google Chrome](https://stackoverflow.com/questions/3030487/is-there-a-way-to-get-the-xpath-in-google-chrome#answer-46599584)
 - [How to Find XPath in Chrome Browser](https://www.scientecheasy.com/2020/07/find-xpath-chrome.html/)
 
+### Blog
+- [Tips for locating elements in Ext JS applications with Selenium WebDriver](https://yizeng.me/2017/01/15/tips-for-locating-elements-in-ext-js-applications-with-selenium-webdriver/#heading-ext-js-example)
+
 ### CheatSheet
 - [Dev Hints - XPath](https://devhints.io/xpath)
