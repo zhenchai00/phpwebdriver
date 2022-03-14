@@ -19,3 +19,4 @@
 
 ### CheatSheet
 - [Dev Hints - XPath](https://devhints.io/xpath)
+- [DevQA.io - CSS Selector](https://devqa.io/selenium-css-selectors/)
