@@ -84,11 +84,11 @@ try {
     $driver->findElement(WebDriverBy::xpath('//input[@id="partnerid-inputEl"]'))->sendKeys('TA');
     $driver->wait()->until(
         WebDriverExpectedCondition::elementTextContains(
-            WebDriverBy::xpath('//li[text()="TA000001"]'),
-            'TA000001'
+            WebDriverBy::xpath('//li[text()="TA000002"]'),
+            'TA000002'
         )
     );
-    $driver->findElement(WebDriverBy::xpath('//li[text()="TA000001"]'))->click();
+    $driver->findElement(WebDriverBy::xpath('//li[text()="TA000002"]'))->click();
     echo "Selected Merchant Code\n";
     sleep(1);
 
@@ -136,7 +136,7 @@ try {
     // Submit form
     $driver->findElement(WebDriverBy::xpath('/html/body/div[4]/div[3]/div/div/a[1]/span/span/span[2]'))->click();
     
-    sleep(3)        ;
+    sleep(3);
     $driver->quit();
 
 } catch (\Exception $ex) {
